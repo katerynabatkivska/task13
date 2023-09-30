@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User Info</title>
+</head>
+<body>
+    <h1>Random User Info</h1>
+
+    <div id="user-info">
+        <img id="avatar" src="" alt="Avatar">
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Age:</strong> <span id="age"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+        <p><strong>Country:</strong> <span id="country"></span></p>
+        <p><strong>Login:</strong> <span id="login"></span></p>
+        <p><strong>Password:</strong> <span id="password"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+
+    <script>
+        function loadRandomUserInfo() {
+            fetch('https://randomuser.me/api/')
+                .then(response => response.json())
+                .then(data => {
+                    const user = data.results[0];
+                    const avatar = document.getElementById('avatar');
+                    const name = document.getElementById('name');
+                    const age = document.getElementById('age');
+                    const gender = document.getElementById('gender');
+                    const country = document.getElementById('country');
+                    const login = document.getElementById('login');
+                    const password = document.getElementById('password');
+                    const email = document.getElementById('email');
+
+                    avatar.src = user.picture.large;
+                    name.textContent = `${user.name.first} ${user.name.last}`;
+                    age.textContent = user.dob.age;
+                    gender.textContent = user.gender;
+                    country.textContent = user.location.country;
+                    login.textContent = user.login.username;
+                    password.textContent = user.login.password;
+                    email.textContent = user.email;
+                })
+                .catch(error => console.error(error));
+        }
+
+        loadRandomUserInfo();
+    </script>
+</body>
+</html>
