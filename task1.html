@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Example</title>
+</head>
+<body>
+    <h1>Async GET Request Example</h1>
+    
+    <button id="voteButton">Vote!</button>
+
+    <script>
+        function fetchData() {
+            fetch('/api/vote')
+                .then(response => response.json())
+                .then(data => {
+                    const voteButton = document.getElementById('voteButton');
+                    voteButton.innerText = `Your vote is accept: ${data.timestamp}`;
+                })
+                .catch(error => console.error(error));
+        }
+
+        const voteButton = document.getElementById('voteButton');
+        voteButton.addEventListener('click', fetchData);
+    </script>
+</body>
+</html>
