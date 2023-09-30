@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Example</title>
+</head>
+<body>
+    <h1>Async GET Request Example</h1>
+    
+    <button id="downloadButton">Download books</button>
+
+    <ul id="authorsList"></ul>
+
+    <script>
+        function fetchBooks() {
+            fetch('/api/books.json')
+                .then(response => response.json())
+                .then(data => {
+                    const authors = data.map(book => book.author);
+                    
+                    const authorsList = document.getElementById('authorsList');
+                    authorsList.innerHTML = authors.map(author => `<li>${author}</li>`).join('');
+                })
+                .catch(error => console.error(error));
+        }
+
+        const downloadButton = document.getElementById('downloadButton');
+        downloadButton.addEventListener('click', fetchBooks);
+    </script>
+</body>
+</html>
